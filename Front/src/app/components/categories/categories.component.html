@@ -1,0 +1,72 @@
+<div class="d-flex bg-light" style="margin-top: 2em; margin-left: 30em;">
+    <div class="" style="width:60%;height:80vh; border:4px solid black;" >
+        <div>
+            <div>
+                <h3 class="text" style="color:#6c4c12;margin-left: 15%; margin-top: 13%;">Catégories</h3>
+            </div>
+            <div class="w-100 d-flex justify-content-end align-items-center px-1 fw-bold"style="color:#6c4c12;">
+                <span>Ajout</span>
+                <div class="form-check form-switch m-15 fs-15">
+                    <input class="form-check-input" type="checkbox" style="border:3px solid#a48c5f" (change)="decheck()" [(ngModel)]="isAddMode" role="switch" id="flexSwitchCheckChecked">
+                    <span>Edit</span>
+                </div>
+            </div>
+        <div class="row mt-3">
+            <div style="margin-left:1em;margin-top: 0.5em;" class="col-md-1">
+                <label for="libelle" class="form-label">Libelle</label>
+            </div>
+            <div class="col-md-5">
+                <input type="text" class="form-control" [disabled]="twoShot" id="libelle" name="libelle" (change)="hop()" (input)="onInputChange()"  style="border:2px solid#a48c5f; margin-left: 8%;" [(ngModel)]="libelle">
+            </div>
+            <div class="col-md-3">
+            <button type="button" style="background:#6c4c12"class="btn btn-primary" (click)="addOrEditCategorie()"
+                [class.disabled]="button">{{ isAddMode ? 'Editer' : 'Ajouter' }}</button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around mt-4">
+            <div>
+                <h4 class="text-decoration-underline" style="color:#6c4c12	">Liste des catégories</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <input class="form-check-input" [disabled]="none" type="checkbox" unchecked [(ngModel)]="selectAll" (change)="toggleSelectAll()">                
+                            </th>
+                            <th scope="col" style="background:#6c4c12">Libelle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let categorie of categories">
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" [checked]="oneShot" [disabled]="none" (change)="oneCheck()" type="checkbox" [(ngModel)]="categorie.checked" value="{{ categorie.id }}" id="flexCheckDefault">
+                                </div>
+                            </td>
+                            <td (click)="deplacer(categorie, id)" style="background:#be8035;"> {{categorie.libelle}}</td>                        
+                        </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item" *ngFor="let link of paginationLinks" [class.active]="link.active">
+                            <a class="page-link" (click)="handlePaginationLinkClick(link)" style="background:#6c4c12" *ngIf="link.url !== null">{{ link.label
+                                }}</a>
+                            <span class="page-link" *ngIf="link.url === null" style="color:#6c4c12">{{ link.label }}</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <button type="button" class="btn btn-danger"[class.disabled]="delete" style="background:#6c4c12; margin-top: -10%;" (click)="deleteSelectedCategories()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert" [ngClass]="{ 'alert-success': successMessage}"
+    *ngIf="successMessage">
+    {{ successMessage }}
+</div>
+
+</div>
+

@@ -1,0 +1,11 @@
+
+<td>{{ article.libelle }}</td>
+<td>{{ article.prix }}</td>
+<td>{{ article.stock }}</td>
+<td>{{ article.categorie_libelle }}</td>
+<td>
+    <button (click)="update(article)" style="background-color: blue;">Edit</button>
+    <button (click)="deleteArt(article)" style="background-color: red;">
+        {{ (isConfirming && articleToDelete === article.id) ? 'OK(' + countdown + ')' : 'Delete' }}
+    </button>
+</td>
